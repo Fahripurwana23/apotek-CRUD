@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserDataController;
+use App\Http\Controllers\YourProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +21,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::get('register', 'register')->name('register');
+    Route::post('register', 'registerSave')->name('register,save');
+
+    Route::get('login', 'login')->name('login');
+    Route::post('login', 'loginAction')->name('login,action');
+
+    Route::get('logout', 'logout')->middleware('auth')->name('logout');
+});
+
+Route::controller(ProfileController::class)->group(function() {
+    Route::get('profile', [ProfileController::class,'profile'])->name('profile');
+    Route::post('profile', [ProfileController::class,'changeProfile'])->name('profile,change');
+    
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
 });
 
 Route::prefix('/medicine')->name('medicine.')->group(function(){
@@ -28,4 +55,4 @@ Route::prefix('/medicine')->name('medicine.')->group(function(){
     Route::get('/stock',[MedicineController::class,'stock'])->name('stock');
 });
 
-
+    Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
