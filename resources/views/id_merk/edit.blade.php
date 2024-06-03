@@ -25,15 +25,16 @@
     </div>
 </div>
 <div class="mb-3 row">
-    <label for="status" class="col-sm-2 col-form-label">status</label>
+    <label for="status" class="col-sm-2 col-form-label">Status:</label>
     <div class="col-sm-10">
-        <select class="form-select" id="status" name="status">
-            <option selected disabled hidden>Pilih</option>
-            <option value="In Stock" {{ old('status', $id_merk->status) == 'In Stock' ? 'selected' : '' }}>In Stock</option>
-            <option value="Out of Stock" {{ old('status', $id_merk->status) == 'Out of Stock' ? 'selected' : '' }}>Out of Stock</option>
-        </select>
+        @php
+        $status = $id_merk->status;
+        $statusText = $status == 1 ? 'In Stock' : 'Out of Stock';
+        @endphp
+        <input type="text" class="form-control" id="status" name="status" value="{{ $statusText }}" readonly>
     </div>
 </div>
+
 <div class="mb-3 row">
     <label for="created_by" class="col-sm-2 col-form-label">created_by :</label>
     <div class="col-sm-10">

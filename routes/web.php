@@ -64,6 +64,8 @@ Route::prefix('/id_merk')->name('merk.')->group(function(){
     Route::get('{id_merk}',[IdMerkController::class,'edit'])->name('edit');
     Route::patch('{id_merk}',[IdMerkController::class,'update'])->name('update');
     Route::delete('{id_merk}',[IdMerkController::class,'destroy'])->name('delete');
+    Route::patch('/updateStatus/{id_merk}', [IdMerkController::class, 'updateStatus'])->name('updateStatus');
+
 });
 
     Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
