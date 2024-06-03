@@ -4,7 +4,9 @@ use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IdMerkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDataController;
 use App\Http\Controllers\YourProfileController;
@@ -55,4 +57,14 @@ Route::prefix('/medicine')->name('medicine.')->group(function(){
     Route::get('/stock',[MedicineController::class,'stock'])->name('stock');
 });
 
+Route::prefix('/id_merk')->name('merk.')->group(function(){
+    Route::get('/',[IdMerkController::class,'index'])->name('home');
+    Route::get('/create',[IdMerkController::class,'create'])->name('create');
+    Route::post('/store',[IdMerkController::class,'store'])->name('store');
+    Route::get('{id_merk}',[IdMerkController::class,'edit'])->name('edit');
+    Route::patch('{id_merk}',[IdMerkController::class,'update'])->name('update');
+    Route::delete('{id_merk}',[IdMerkController::class,'destroy'])->name('delete');
+});
+
     Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
+    Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
