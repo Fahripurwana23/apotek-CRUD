@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('title', 'Profile Settings')
 
@@ -23,7 +23,7 @@
                     </div>
                     <div class="mt-5 text-center">
                         <button class="btn btn-primary profile-button">Save Profile</button>
-                        <a href="{{url('medicine.home')}}" class="btn border profile-button">Cancel</a>
+                        <a href="{{url('medicine')}}" class="btn border profile-button">Cancel</a>
                     </div>
                 </div>
             </div>
