@@ -28,12 +28,11 @@
         </div>
         <div class="mb-3 row">
             <label for="type" class="col-sm-2 col-form-label">status :</label>
-            <div class="col-sm-10">
-                <select class="form-select" id="status" name="status">
-                    <option selected disabled hidden>Pilih</option>
-                    <option value="In Stock">In Stock</option>
-                    <option value="Out of Stock">Out of Stock</option>
-                </select>
+            <select class="form-select" id="status" name="status">
+                <option selected disabled hidden>Pilih</option>
+                <option value="1">In Stock</option>
+                <option value="0">Out of Stock</option>
+            </select>
             </div>
         </div>
         <div class="mb-3 row">

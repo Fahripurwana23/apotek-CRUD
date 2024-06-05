@@ -42,10 +42,12 @@ class IdMerkController extends Controller
         $datamerk = [
             'name' => $request->name,
             'logo' => '',
-            'status' => $request->status,
+            'status' => ($request->status == '1') ? 1 : 0, // Mengubah string '1' atau '0' menjadi integer 1 atau 0
             'created_by' => $request->created_by,
             'updated_by' => $request->updated_by, 
         ];
+        
+        
 
         if ($request->hasFile('logo')) {
             $image = $request->file('logo');
@@ -87,14 +89,12 @@ class IdMerkController extends Controller
         $request->validate([
             'name' => 'required|min:3',
             'logo' => 'nullable|file|mimes:jpg,jpeg,png',
-            'status' => 'required',
             'created_by' => 'required',
             'updated_by' => 'required',
         ]);
 
         $datamerk = [
             'name' => $request->name,
-            'status' => $request->status,
             'created_by' => $request->created_by,
             'updated_by' => $request->updated_by,
         ];
@@ -132,4 +132,19 @@ class IdMerkController extends Controller
 
         return redirect()->back()->with('deleted','Berhasil menghapus data');
     }
+    
+    public function updateStatus(Request $request, id_merk $id_merk)
+    {
+        $request->validate([
+            'status' => 'required|integer',
+        ]);
+    
+        $id_merk->update([
+            'status' => $request->status,
+        ]);
+    
+        return redirect()->route('merk.home')->with('success', 'Berhasil mengubah status');
+    }
+    
+
 }
