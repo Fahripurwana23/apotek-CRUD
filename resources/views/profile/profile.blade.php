@@ -8,7 +8,7 @@
 
 @section('contents')
 <main>
-    <form action="{{route('profile,change')}}" method="POST" enctype="multipart/form-data" class="space-y-4 md:space-y-6">
+    <form action="{{route('profile.change')}}" method="POST" enctype="multipart/form-data" class="space-y-4 md:space-y-6">
         @csrf
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">

@@ -8,7 +8,6 @@
 <div class="alert alert-success">{{ Session::get('deleted') }}</div>
 @endif
 <a class="btn btn-primary float-end" href="{{ route('merk.create') }}" role="button">Tambah Merk</a>
-<br><br>
 <table class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
@@ -29,7 +28,7 @@
             <td>{{ $item->name }}</td>
             <td><img src="{{ asset($item->logo) }}" alt="logo" class="logo" style="width: auto; height:50px;"></td>
             <td>
-                @if($item->status == '1')
+                @if($item->status)
                 <button class="badge badge-success">In Stock</button>
                 @else
                 <button class="badge badge-danger">Out Stock</button>
@@ -54,7 +53,7 @@
                     <form action="{{ route('merk.updateStatus', ['id_merk' => $item->id]) }}" method="POST" id="form-out-stock-{{ $item->id }}">
                         @csrf
                         @method('PATCH')
-                        <input type="hidden" name="status" value="2">
+                        <input type="hidden" name="status" value="0">
                         <button type="button" class="btn btn-danger btn-out-stock" data-id="{{ $item->id }}">Out Stock</button>
                     </form>
                 </div>

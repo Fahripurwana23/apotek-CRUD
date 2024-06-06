@@ -8,7 +8,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdMerkController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserDataController;
 use App\Http\Controllers\YourProfileController;
 
 /*
@@ -28,18 +27,17 @@ Route::get('/', function () {
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
-    Route::post('register', 'registerSave')->name('register,save');
+    Route::post('register', 'registerSave')->name('register.save');
 
     Route::get('login', 'login')->name('login');
-    Route::post('login', 'loginAction')->name('login,action');
+    Route::post('login', 'loginAction')->name('login.action');
 
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
 Route::controller(ProfileController::class)->group(function() {
-    Route::get('profile', [ProfileController::class,'profile'])->name('profile');
-    Route::post('profile', [ProfileController::class,'changeProfile'])->name('profile,change');
-    
+    Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::post('profile', [ProfileController::class, 'changeProfile'])->name('profile.change');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -47,26 +45,25 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
 });
 
-Route::prefix('/medicine')->name('medicine.')->group(function(){
-    Route::get('/create',[MedicineController::class,'create'])->name('create');
-    Route::post('/store',[MedicineController::class,'store'])->name('store');
-    Route::get('/',[MedicineController::class,'index'])->name('home');
-    Route::get('/{id}', [MedicineController::class,'edit'])->name('edit');
-    Route::patch('/{id}', [MedicineController::class,'update'])->name('update');
-    Route::delete('/{id}', [MedicineController::class,'destroy'])->name('delete');
-    Route::get('/stock',[MedicineController::class,'stock'])->name('stock');
+Route::prefix('/medicine')->name('medicine.')->group(function() {
+    Route::get('/create', [MedicineController::class, 'create'])->name('create');
+    Route::post('/store', [MedicineController::class, 'store'])->name('store');
+    Route::get('/', [MedicineController::class, 'index'])->name('home');
+    Route::get('/{id}', [MedicineController::class, 'edit'])->name('edit');
+    Route::patch('/{id}', [MedicineController::class, 'update'])->name('update');
+    Route::delete('/{id}', [MedicineController::class, 'destroy'])->name('delete');
+    Route::get('/stock', [MedicineController::class, 'stock'])->name('stock');
 });
 
-Route::prefix('/id_merk')->name('merk.')->group(function(){
-    Route::get('/',[IdMerkController::class,'index'])->name('home');
-    Route::get('/create',[IdMerkController::class,'create'])->name('create');
-    Route::post('/store',[IdMerkController::class,'store'])->name('store');
-    Route::get('{id_merk}',[IdMerkController::class,'edit'])->name('edit');
-    Route::patch('{id_merk}',[IdMerkController::class,'update'])->name('update');
-    Route::delete('{id_merk}',[IdMerkController::class,'destroy'])->name('delete');
+Route::prefix('/id_merk')->name('merk.')->group(function() {
+    Route::get('/', [IdMerkController::class, 'index'])->name('home');
+    Route::get('/create', [IdMerkController::class, 'create'])->name('create');
+    Route::post('/store', [IdMerkController::class, 'store'])->name('store');
+    Route::get('{id_merk}', [IdMerkController::class, 'edit'])->name('edit');
+    Route::patch('{id_merk}', [IdMerkController::class, 'update'])->name('update');
+    Route::delete('{id_merk}', [IdMerkController::class, 'destroy'])->name('delete');
     Route::patch('/updateStatus/{id_merk}', [IdMerkController::class, 'updateStatus'])->name('updateStatus');
-
 });
 
-    Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
-    Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');

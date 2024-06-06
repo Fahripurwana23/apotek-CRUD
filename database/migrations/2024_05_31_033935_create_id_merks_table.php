@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('logo')->nullable();
-            $table->enum('status',['In Stock','Out of Stock']);
+            $table->boolean('status')->default(0); // 0 for Out of Stock, 1 for In Stock
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();

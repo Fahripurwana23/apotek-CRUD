@@ -6,6 +6,8 @@ use App\Models\id_merk; // Ubah ini ke IdMerk
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use PDF;
+
 
 class IdMerkController extends Controller
 {
@@ -30,47 +32,36 @@ class IdMerkController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'logo' => 'required|file|mimes:jpg,jpeg,png',
-            'status' => 'required',
-            'created_by' => 'required',
-            'updated_by' => 'required',
-        ]);
+{
+    $request->validate([
+        'name' => 'required',
+        'logo' => 'required|file|mimes:jpg,jpeg,png',
+        'status' => 'required',
+        'created_by' => 'required',
+        'updated_by' => 'required',
+    ]);
 
-        $datamerk = [
-            'name' => $request->name,
-            'logo' => '',
-            'status' => ($request->status == '1') ? 1 : 0, // Mengubah string '1' atau '0' menjadi integer 1 atau 0
-            'created_by' => $request->created_by,
-            'updated_by' => $request->updated_by, 
-        ];
-        
-        
+    $datamerk = [
+        'name' => $request->name,
+        'logo' => '',
+        'status' => ($request->status == '1') ? 1 : 0, // Mengubah string '1' atau '0' menjadi integer 1 atau 0
+        'created_by' => $request->created_by,
+        'updated_by' => $request->updated_by, 
+    ];
 
-        if ($request->hasFile('logo')) {
-            $image = $request->file('logo');
-
-            // Ubah nama pengguna menjadi huruf kecil dan ganti spasi dengan tanda '-'
-            $username = strtolower(str_replace(' ', '-', $request->name));
-
-            // Nama file baru
-            $nameFile = $username . '-' . time() . '.' . $image->getClientOriginalExtension();
-
-            // Path upload
-            $path = 'uploads/logomerk/';
-            $image->move(public_path($path), $nameFile);
-
-            // Masukkan path image ke array data
-            $datamerk['logo'] = $path . $nameFile;
-        }
-
-        id_merk::create($datamerk);
-
-        return redirect()->route('merk.home')->with('success', 'Berhasil menambah data merk');
+    if ($request->hasFile('logo')) {
+        $image = $request->file('logo');
+        $username = strtolower(str_replace(' ', '-', $request->name));
+        $nameFile = $username . '-' . time() . '.' . $image->getClientOriginalExtension();
+        $path = 'uploads/logomerk/';
+        $image->move(public_path($path), $nameFile);
+        $datamerk['logo'] = $path . $nameFile;
     }
 
+    id_merk::create($datamerk);
+
+    return redirect()->route('merk.home')->with('success', 'Berhasil menambah data merk');
+}
 
 
     /**
@@ -145,6 +136,4 @@ class IdMerkController extends Controller
     
         return redirect()->route('merk.home')->with('success', 'Berhasil mengubah status');
     }
-    
-
 }
