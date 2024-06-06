@@ -8,10 +8,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdMerkController;
 use App\Http\Controllers\ProfileController;
-<<<<<<< HEAD
-=======
-use App\Http\Controllers\addusercontroller;
->>>>>>> bc923f5a889de44de992a3c41df2bbfd6186d86c
 use App\Http\Controllers\YourProfileController;
 use App\Http\Controllers\userdatacontroller;
 
