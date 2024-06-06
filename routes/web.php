@@ -8,7 +8,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdMerkController;
 use App\Http\Controllers\ProfileController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\addusercontroller;
+>>>>>>> bc923f5a889de44de992a3c41df2bbfd6186d86c
 use App\Http\Controllers\YourProfileController;
+use App\Http\Controllers\userdatacontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,5 +70,12 @@ Route::prefix('/id_merk')->name('merk.')->group(function() {
     Route::patch('/updateStatus/{id_merk}', [IdMerkController::class, 'updateStatus'])->name('updateStatus');
 });
 
+<<<<<<< HEAD
 Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+=======
+    Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
+    Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+    Route::get('adduser',[addusercontroller::class,'adduser'])->name('addUser');
+    Route::post('adduser',[addusercontroller::class,'adduserSave'])->name('adduser,Save');
+>>>>>>> bc923f5a889de44de992a3c41df2bbfd6186d86c
