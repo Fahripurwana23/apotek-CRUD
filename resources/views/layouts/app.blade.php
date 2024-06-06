@@ -40,6 +40,9 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Pembelian</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('addUser') }}">Add User</a>
+                  </li>
                 </ul>
               </div>
             </div>

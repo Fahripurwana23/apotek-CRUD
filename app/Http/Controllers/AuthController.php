@@ -82,7 +82,7 @@ class AuthController extends Controller
         
         $request->session()->regenerate();
         
-            return redirect()->route('medicine.home');
+            return redirect()->route('dashboard');
         
     }
 
