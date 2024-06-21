@@ -32,8 +32,8 @@
         <div class="col-sm-10">
             <select class="form-select" id="status" name="status">
                 <option selected disabled hidden>Pilih</option>
-                <option value="1">In Stock</option>
-                <option value="0">Out of Stock</option>
+                <option value="1">active</option>
+                <option value="0">in active</option>
             </select>
         </div>
     </div>    

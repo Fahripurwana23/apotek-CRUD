@@ -27,7 +27,7 @@
         <div class="col-sm-10">
             @php
             $status = $id_merk->status;
-            $statusText = $status == 1 ? 'In Stock' : 'Out of Stock';
+            $statusText = $status == 1 ? 'active' : 'inactive';
             @endphp
             <input type="text" class="form-control" id="status" name="status_text" value="{{ $statusText }}" readonly>
         </div>

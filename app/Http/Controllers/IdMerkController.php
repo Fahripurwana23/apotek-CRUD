@@ -125,15 +125,17 @@ class IdMerkController extends Controller
     }
     
     public function updateStatus(Request $request, id_merk $id_merk)
-    {
-        $request->validate([
-            'status' => 'required|integer',
-        ]);
+{
+    $request->validate([
+        'status' => 'required|integer',
+    ]);
+
+    $id_merk->update([
+        'status' => $request->status,
+    ]);
+
+    $message = $request->status ? 'Berhasil mengubah menjadi active' : 'Berhasil mengubah menjadi inactive';
     
-        $id_merk->update([
-            'status' => $request->status,
-        ]);
-    
-        return redirect()->route('merk.home')->with('success', 'Berhasil mengubah status');
-    }
+    return redirect()->route('merk.home')->with('success', $message);
+}
 }
