@@ -23,7 +23,7 @@
         <label for="new_password_confirmation">Confirm New Password</label>
         <input type="password" name="new_password_confirmation" required>
         <button type="submit">Change Password</button>
-        <a href="{{ url('medicine') }}" class="btn">Cancel</a>
+        <a href="{{ url('/dashboard') }}" class="btn">Cancel</a>
     </form>
 </div>
 @endsection

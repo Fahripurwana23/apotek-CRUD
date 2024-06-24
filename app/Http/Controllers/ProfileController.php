@@ -55,6 +55,6 @@ class ProfileController extends Controller
     
         User::where('id', Auth::user()->id)->update($dataUpdate);
     
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
     }
 }
