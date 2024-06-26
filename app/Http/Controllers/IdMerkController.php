@@ -6,6 +6,7 @@ use App\Models\id_merk; // Ubah ini ke IdMerk
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Tambahkan ini untuk mendapatkan informasi pengguna
 use PDF;
 
 class IdMerkController extends Controller
@@ -138,8 +139,11 @@ class IdMerkController extends Controller
             'status' => 'required|integer',
         ]);
 
+        $user = Auth::user(); // Mendapatkan informasi pengguna yang login
+
         $id_merk->update([
             'status' => $request->status,
+            'updated_by' => $user->name, // Perbarui kolom updated_by dengan nama pengguna yang login
         ]);
 
         $message = $request->status ? 'Berhasil mengubah menjadi active' : 'Berhasil mengubah menjadi inactive';

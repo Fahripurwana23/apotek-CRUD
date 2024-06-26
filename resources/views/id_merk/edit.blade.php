@@ -35,18 +35,4 @@
     <div class="mb-3 row">
         <label for="created_by" class="col-sm-2 col-form-label">Created By :</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="created_by" name="created_by" value="{{ old('created_by', $id_merk->created_by) }}">
-        </div>
-    </div>
-
-    <div class="mb-3 row">
-        <label for="updated_by" class="col-sm-2 col-form-label">Updated By :</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="updated_by" name="updated_by" value="{{ Auth::user()->name }}">
-        </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-3">Ubah Data</button>
-</form>
-
-@endsection
+            <input type="text" class="form-control" id="created_by" name="created_by" value="{{ old('created_by', $id_merk
