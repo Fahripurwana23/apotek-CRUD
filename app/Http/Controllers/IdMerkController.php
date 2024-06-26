@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PDF;
 
-
 class IdMerkController extends Controller
 {
     /**
@@ -32,37 +31,36 @@ class IdMerkController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required',
-        'logo' => 'required|file|mimes:jpg,jpeg,png',
-        'status' => 'required',
-        'created_by' => 'required',
-        'updated_by' => 'required',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required',
+            'logo' => 'required|file|mimes:jpg,jpeg,png',
+            'status' => 'required',
+            'created_by' => 'required',
+            'updated_by' => 'required',
+        ]);
 
-    $datamerk = [
-        'name' => $request->name,
-        'logo' => '',
-        'status' => ($request->status == '1') ? 1 : 0, // Mengubah string '1' atau '0' menjadi integer 1 atau 0
-        'created_by' => $request->created_by,
-        'updated_by' => $request->updated_by, 
-    ];
+        $datamerk = [
+            'name' => $request->name,
+            'logo' => '',
+            'status' => ($request->status == '1') ? 1 : 0, // Mengubah string '1' atau '0' menjadi integer 1 atau 0
+            'created_by' => $request->created_by,
+            'updated_by' => $request->updated_by, 
+        ];
 
-    if ($request->hasFile('logo')) {
-        $image = $request->file('logo');
-        $username = strtolower(str_replace(' ', '-', $request->name));
-        $nameFile = $username . '-' . time() . '.' . $image->getClientOriginalExtension();
-        $path = 'uploads/logomerk/';
-        $image->move(public_path($path), $nameFile);
-        $datamerk['logo'] = $path . $nameFile;
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $username = strtolower(str_replace(' ', '-', $request->name));
+            $nameFile = $username . '-' . time() . '.' . $image->getClientOriginalExtension();
+            $path = 'uploads/logomerk/';
+            $image->move(public_path($path), $nameFile);
+            $datamerk['logo'] = $path . $nameFile;
+        }
+
+        id_merk::create($datamerk);
+
+        return redirect()->route('merk.home')->with('success', 'Berhasil menambah data merk');
     }
-
-    id_merk::create($datamerk);
-
-    return redirect()->route('merk.home')->with('success', 'Berhasil menambah data merk');
-}
-
 
     /**
      * Show the form for editing the specified resource.
@@ -93,6 +91,11 @@ class IdMerkController extends Controller
         if ($request->hasFile('logo')) {
             $image = $request->file('logo');
 
+            // Hapus logo lama jika ada
+            if ($id_merk->logo && file_exists(public_path($id_merk->logo))) {
+                unlink(public_path($id_merk->logo));
+            }
+
             // Ubah nama pengguna menjadi huruf kecil dan ganti spasi dengan tanda '-'
             $username = strtolower(str_replace(' ', '-', $request->name));
 
@@ -119,23 +122,28 @@ class IdMerkController extends Controller
      */
     public function destroy(id_merk $id_merk)
     {
+        // Hapus logo dari sistem file jika ada
+        if ($id_merk->logo && file_exists(public_path($id_merk->logo))) {
+            unlink(public_path($id_merk->logo));
+        }
+
         $id_merk->delete();
 
-        return redirect()->back()->with('deleted','Berhasil menghapus data');
+        return redirect()->back()->with('deleted', 'Berhasil menghapus data');
     }
-    
+
     public function updateStatus(Request $request, id_merk $id_merk)
-{
-    $request->validate([
-        'status' => 'required|integer',
-    ]);
+    {
+        $request->validate([
+            'status' => 'required|integer',
+        ]);
 
-    $id_merk->update([
-        'status' => $request->status,
-    ]);
+        $id_merk->update([
+            'status' => $request->status,
+        ]);
 
-    $message = $request->status ? 'Berhasil mengubah menjadi active' : 'Berhasil mengubah menjadi inactive';
-    
-    return redirect()->route('merk.home')->with('success', $message);
-}
+        $message = $request->status ? 'Berhasil mengubah menjadi active' : 'Berhasil mengubah menjadi inactive';
+        
+        return redirect()->route('merk.home')->with('success', $message);
+    }
 }

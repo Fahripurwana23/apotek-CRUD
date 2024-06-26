@@ -12,8 +12,8 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Nama</th>
-            <th>Logo</th>
+            <th>Nama_merk</th>
+            <th>Logo_merk</th>
             <th>Status</th>
             <th>Created By</th>
             <th>Updated By</th>

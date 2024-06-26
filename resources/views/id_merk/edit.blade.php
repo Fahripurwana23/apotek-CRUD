@@ -11,13 +11,13 @@
         </ul>
     @endif
     <div class="mb-3 row">
-        <label for="name" class="col-sm-2 col-form-label">Nama :</label>
+        <label for="name" class="col-sm-2 col-form-label">Nama_merk :</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $id_merk->name) }}">
         </div>
     </div>
     <div class="mb-3 row">
-        <label for="logo" class="col-sm-2 col-form-label">Logo :</label>
+        <label for="logo" class="col-sm-2 col-form-label">Logo_merk :</label>
         <div class="col-sm-10">
             <input type="file" class="form-control" id="logo" name="logo" value="{{ $id_merk->logo }}">
         </div>
