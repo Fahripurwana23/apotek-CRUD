@@ -35,11 +35,11 @@
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{{ route('medicine.home') }}">Data Obat</a></li>
                       <li><a class="dropdown-item" href="{{ route('medicine.create') }}">Tambah</a></li>
-                      <li><a class="dropdown-item" href="{{ route('medicine.stock') }}">Stok</a></li>
+                      <li><a class="dropdown-item" href="{{ route('stock') }}">Stok</a></li>
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Pembelian</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('index') }}">Pembelian</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ route('addUser') }}">Add User</a>

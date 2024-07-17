@@ -46,7 +46,7 @@ class MedicineController extends Controller
 
         // atau jika seluruh data input akan di masukan ke db bisa dengan printah medicine:::create($request->all());
 
-        return redirect()->back()->with('success','Berhasil menambah data obat');
+        return redirect('medicine')->with('success','Berhasil menambah data obat');
     }
 
     /**
@@ -102,10 +102,10 @@ class MedicineController extends Controller
         return redirect()->back()->with('deleted','Berhasil menghapus data');
     }
 
-    public function stock()
+    public function stock($id)
     {
         $medicines = Medicine::orderBy('stock', 'ASC')->get();
-        dd($medicines); // Dump dan die untuk memeriksa isi dari $medicines
+        //dd($medicines); // Dump dan die untuk memeriksa isi dari $medicines
         return view('medicines.stock', compact('medicines'));
     }
 }

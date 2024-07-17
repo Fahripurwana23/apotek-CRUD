@@ -1,0 +1,9 @@
+.low-stock {
+    background: red;
+    color: white;
+}
+
+.normal-stock {
+    background: none;
+    color: black;
+}

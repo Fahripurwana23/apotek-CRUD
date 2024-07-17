@@ -11,6 +11,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\YourProfileController;
 use App\Http\Controllers\userdatacontroller;
 use App\Http\Controllers\addusercontroller;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StockController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,7 +56,6 @@ Route::prefix('/medicine')->name('medicine.')->group(function() {
     Route::get('/{id}', [MedicineController::class, 'edit'])->name('edit');
     Route::patch('/{id}', [MedicineController::class, 'update'])->name('update');
     Route::delete('/{id}', [MedicineController::class, 'destroy'])->name('delete');
-    Route::get('/stock', [MedicineController::class, 'stock'])->name('stock');
 });
 
 Route::prefix('/id_merk')->name('merk.')->group(function() {
@@ -66,10 +68,18 @@ Route::prefix('/id_merk')->name('merk.')->group(function() {
     Route::patch('/updateStatus/{id_merk}', [IdMerkController::class, 'updateStatus'])->name('updateStatus');
 });
 
+
 Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/your-profile', [YourProfileController::class, 'show'])->name('your-profile');
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
     Route::get('adduser',[addusercontroller::class,'adduser'])->name('addUser');
     Route::post('adduser',[addusercontroller::class,'adduserSave'])->name('adduser,Save');
+    Route::get('/stock',[StockController::class,'stock'])->name('stock');
+    Route::get('/',[OrderController::class,'index'])->name('index');
+    Route::get('/create',[OrderController::class,'create'])->name('create');
+    Route::post('/store',[OrderController::class,'store'])->name('store');
+    Route::get('/print/{id}', [OrderController::class, 'show'])->name('print');
+    Route::get('/download/{id}', [OrderController::class, 'downloadPDF'])->name('download');
+
 
