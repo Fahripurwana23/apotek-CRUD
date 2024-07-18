@@ -105,9 +105,16 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+
+        if ($order) {
+            $order->delete();
+            return redirect()->route('index')->with('success', 'Data berhasil dihapus');
+        }
+
+        return redirect()->route('index')->with('error', 'Data tidak ditemukan');
     }
 
     public function downloadPDF($id)
