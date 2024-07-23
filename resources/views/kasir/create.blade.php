@@ -30,13 +30,15 @@
         <div class="mb-3 row">
             <label for="medicines" class="col-sm-2 col-form-label">Obat</label>
             <div class="col-sm-10">
-                {{-- name dibuat array karena nantinya data obat medicine akan berbentuk array/data bisa lebih dari satu --}}
-                <select name="medicines[]" id="medicines" class="form-select">
-                    <option selected hidden disabled>pesanan 1</option>
-                    @foreach ($medicines as $item)
-                        <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
-                    @endforeach
-                </select>
+                <div class="d-flex align-items-center mb-3">
+                    <select name="medicines[]" id="medicines" class="form-select me-2">
+                        <option selected hidden disabled>pesanan 1</option>
+                        @foreach ($medicines as $item)
+                            <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
+                        @endforeach
+                    </select>
+                    <input type="number" name="quantities[]" class="form-control" placeholder="Jumlah" min="1">
+                </div>
                 {{-- div pembungkus untuk tambahan select yang akan muncul --}}
                 <div id="wrap-medicines"></div>
                 <br>
@@ -56,12 +58,15 @@
     // ketika tag dengan id add-select di klik, jalankan fungsi berikut
     $("#add-select").on("click", function() {
         // tag html yang akan ditambahkan/muncul
-        let en = `<br><select name="medicines[]" id="medicines" class="form-select">
-            <option selected hidden disabled>pesanan ${no}</option>
-            @foreach ($medicines as $item)
-                <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
-            @endforeach
-        </select>`;
+        let en = `<div class="d-flex align-items-center mb-3">
+            <select name="medicines[]" id="medicines" class="form-select me-2">
+                <option selected hidden disabled>pesanan ${no}</option>
+                @foreach ($medicines as $item)
+                    <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
+                @endforeach
+            </select>
+            <input type="number" name="quantities[]" class="form-control" placeholder="Jumlah" min="1">
+        </div>`;
         // append: ditambahkan elemen html di bagian sebelum penutup tag terkait (sebelum penutup tag yang id nya wrap-medicines)
         $("#wrap-medicines").append(en);
         // increment variable no agar angka yang muncul di option selalu bertambah 1 sesuai jumlah select nya

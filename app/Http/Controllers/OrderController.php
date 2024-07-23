@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\PDF as DomPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+use Spatie\FlareClient\View;
 
 class OrderController extends Controller
 {
@@ -36,46 +37,58 @@ class OrderController extends Controller
     {
         $request->validate([
             'name_customer' => 'required',
-            'medicines' => 'required',
+            'medicines' => 'required|array',
+            'quantities' => 'required|array',
+            'quantities.*' => 'required|numeric|min:1',
         ]);
-
-        $arrayDistinct = array_count_values($request->medicines);
+    
         $arrayAssocMedicines = [];
-
-        foreach ($arrayDistinct as $id => $count) {
-            $medicine = Medicine::where('id', $id)->first();
-            $subPrice = $medicine['price'] * $count;
-
+    
+        foreach ($request->medicines as $index => $id) {
+            $medicine = Medicine::find($id);
+            $count = $request->quantities[$index];
+    
+            if ($medicine->stock < $count) {
+                return redirect()->back()->with('error', 'Stock obat tidak mencukupi untuk obat: ' . $medicine->name);
+            }
+    
+            $subPrice = $medicine->price * $count;
+    
             $arrayItem = [
                 "id" => $id,
-                "name_medicine" => $medicine['name'],
+                "name_medicine" => $medicine->name,
                 "qty" => $count,
-                "price" => $medicine['price'],
+                "price" => $medicine->price,
                 "sub_price" => $subPrice,
             ];
-
+    
             array_push($arrayAssocMedicines, $arrayItem);
+    
+            // Kurangi stok obat
+            $medicine->stock -= $count;
+            $medicine->save();
         }
-
+    
         $totalPrice = 0;
         foreach ($arrayAssocMedicines as $item) {
             $totalPrice += (int)$item['sub_price'];
         }
-
+    
         $priceWithPPN = $totalPrice + ($totalPrice * 0.1);
-
+    
         $proses = Order::create([
             'user_id' => Auth::user()->id,
             'medicines' => json_encode($arrayAssocMedicines),
             'name_customer' => $request->name_customer,
             'total_price' => $priceWithPPN,
         ]);
-
+    
         if ($proses) {
             $order = Order::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
-            return redirect()->route('print', $order['id']);
+            return redirect()->route('print', $order->id);
         }
     }
+    
 
     /*
      * Display the specified resource.
@@ -123,5 +136,11 @@ class OrderController extends Controller
         view()->share('order', $order);
         $pdf = PDF::loadView('kasir.print', $order);
         return $pdf->download('receipt.pdf');
+    }
+
+    public function data()
+    {
+        $orders = Order::with('user')->simplePaginate('5');
+        return View ('kasir.index2', compact('orders'));
     }
 }

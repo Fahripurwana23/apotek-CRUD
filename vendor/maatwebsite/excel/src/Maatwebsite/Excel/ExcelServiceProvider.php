@@ -151,7 +151,7 @@ class ExcelServiceProvider extends ServiceProvider {
 	protected function bindClasses()
 	{
 		// Bind the format identifier
-		$this->app['excel.identifier'] = $this->app->share(function($app) {
+		$this->app['excel.identifier'] = $this->app->singleton(function($app) {
 			return new FormatIdentifier($app['files']);
 		});
 	}

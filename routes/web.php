@@ -82,5 +82,5 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
     Route::get('/print/{id}', [OrderController::class, 'show'])->name('print');
     Route::get('/download/{id}', [OrderController::class, 'downloadPDF'])->name('download');
     Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
-
+    Route::get('/data',[OrderController::class,'data'])->name('data');
 
