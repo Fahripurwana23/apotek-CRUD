@@ -8,7 +8,9 @@ use Barryvdh\DomPDF\PDF as DomPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
-use Spatie\FlareClient\View;
+use Excel;
+use App\Exports\OrderExport;
+
 
 class OrderController extends Controller
 {
@@ -140,7 +142,13 @@ class OrderController extends Controller
 
     public function data()
     {
-        $orders = Order::with('user')->simplePaginate('5');
-        return View ('kasir.index2', compact('orders'));
+        $orders = Order::with('user')->simplePaginate(5);
+        return view ('kasir.index2', compact('orders'));
+    }
+    
+    public function exportExcel()
+    {
+        $file_name = 'data_pembelian'.'.xlsx';
+        return Excel::download(new OrderExport, $file_name);
     }
 }

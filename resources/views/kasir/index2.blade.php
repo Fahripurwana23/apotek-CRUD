@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('content')
 <div class="my-5 d-flex justify-content-end" >
-    <a href="" class="btn btn-primary"> Export Data (excel)</a>
+    <a href="" class="btn btn-primary">Export Data(Excel)</a>
 </div>
 <table class="table table-striped table-bordered">
     <thead>
@@ -42,7 +42,6 @@
             setlocale(LC_ALL, 'IND');
         @endphp
             <td>{{ Carbon\Carbon::parse($orders->$created_at)->formatLocalized('%d %B %Y') }}</td>
-            <td>  <a href="{{ route('download'), $order['id'] }}" class="btn btn-secondary " ></a></td>
         </tr>
         @endforeach
     </tbody>

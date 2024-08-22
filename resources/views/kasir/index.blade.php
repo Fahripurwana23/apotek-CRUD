@@ -5,6 +5,7 @@
 <div class="container mr-3">
     <div class="d-flex justify-content-end">
         <a href="{{ route('create') }}" class="btn btn-primary">Pembelian baru</a>
+        <a href="{{ route('export-exel') }}" class="btn btn-primary">Dowload(Excel)</a>
     </div>
 
     <table class="table table-striped table-bordered table-hover">
@@ -37,7 +38,7 @@
                     <td>Rp. {{ number_format($item['total_price'], 0, ',', '.') }}</td>
                     <td>{{ $item['user']['name'] }}</td>
                     <td>
-                        <a href="{{ route('download', ['id' => $item['id']]) }}" class="btn btn-secondary">Download struk</a>
+                        <a href="{{ route('download', ['id' => $item['id']]) }}" class="btn btn-secondary">Download(.pdf)</a>
                         <form action="{{ route('orders.destroy', ['id' => $item['id']]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

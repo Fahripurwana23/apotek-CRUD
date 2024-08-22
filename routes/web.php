@@ -56,6 +56,7 @@ Route::prefix('/medicine')->name('medicine.')->group(function() {
     Route::get('/{id}', [MedicineController::class, 'edit'])->name('edit');
     Route::patch('/{id}', [MedicineController::class, 'update'])->name('update');
     Route::delete('/{id}', [MedicineController::class, 'destroy'])->name('delete');
+    Route::get('/stock',[MedicineController::class,'stock'])->name('stock');
 });
 
 Route::prefix('/id_merk')->name('merk.')->group(function() {
@@ -83,4 +84,4 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
     Route::get('/download/{id}', [OrderController::class, 'downloadPDF'])->name('download');
     Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('/data',[OrderController::class,'data'])->name('data');
-
+    Route::get('/export-excel',[OrderController::class,'exportExcel'])->name('export-exel');

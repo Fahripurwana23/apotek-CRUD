@@ -26,4 +26,5 @@ class Order extends Model
         //dalam kurung merupakan nama model tempat penyimpnan dari pk nya si fk yang ada di model ini
         return $this->belongsTo(User::class);
     }
+    
 }
