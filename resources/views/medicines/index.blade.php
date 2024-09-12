@@ -30,13 +30,13 @@
             <td>{{ $item['stock']}}</td>
             <td class="d-flex justify-content-center">
                 <a href="{{ route('medicine.edit', $item['id']) }}" class="btn btn-primary me-3">Edit</a>
-                <a href="{{ route('medicine.medicine.show', $item->id) }}" class="btn btn-primary">Show</a>
+                <a href="{{ route('medicine.medicine.show', $item->id) }}" class="btn btn-primary me-3">Show</a> <!-- Tambahkan margin -->
                 <form action="{{ route('medicine.delete', $item['id']) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Hapus</button>
                 </form>
-            </td>
+            </td>            
         </tr>
         @endforeach
     </tbody>
