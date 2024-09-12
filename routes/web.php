@@ -13,6 +13,7 @@ use App\Http\Controllers\userdatacontroller;
 use App\Http\Controllers\addusercontroller;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\BarcodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,8 @@ Route::prefix('/medicine')->name('medicine.')->group(function() {
     Route::patch('/{id}', [MedicineController::class, 'update'])->name('update');
     Route::delete('/{id}', [MedicineController::class, 'destroy'])->name('delete');
     Route::get('/stock',[MedicineController::class,'stock'])->name('stock');
+    Route::get('medicine/{id}', [MedicineController::class, 'show'])->name('medicine.show');
+
 });
 
 Route::prefix('/id_merk')->name('merk.')->group(function() {
@@ -85,3 +88,4 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
     Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('/data',[OrderController::class,'data'])->name('data');
     Route::get('/export-excel',[OrderController::class,'exportExcel'])->name('export-exel');
+    Route::get('/barcode-index', [BarcodeController::class, 'barcodeIndex'])->name('barcode');

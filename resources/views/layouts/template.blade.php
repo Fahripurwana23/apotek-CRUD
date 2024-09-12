@@ -28,6 +28,9 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ route('merk.home') }}">Id_merk</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('barcode') }}">Barcode</a>
+                  </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Obat

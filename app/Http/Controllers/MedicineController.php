@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Medicine;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class MedicineController extends Controller
 {
@@ -52,9 +53,17 @@ class MedicineController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
+        $medicine = Medicine::find($id);
+
+        // Generate barcode dari field 'code'
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode($medicine->code, $generator::TYPE_CODE_128)) . '">';
+
+        return view('medicines.show', compact('medicine', 'barcode'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
